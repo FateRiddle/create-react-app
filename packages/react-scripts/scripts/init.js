@@ -86,7 +86,8 @@ module.exports = function(
     require.resolve(path.join(__dirname, '..', 'package.json'))
   );
   const appPackage = require(path.join(appPath, 'package.json'));
-  const useYarn = fs.existsSync(path.join(appPath, 'yarn.lock'));
+  // const useYarn = fs.existsSync(path.join(appPath, 'yarn.lock'));
+  const useYarn = false; // 不使用yarn，只使用tnpm
 
   // Copy over some of the devDependencies
   appPackage.dependencies = appPackage.dependencies || {};
@@ -99,6 +100,7 @@ module.exports = function(
     build: 'react-scripts build',
     test: 'react-scripts test',
     eject: 'react-scripts eject',
+    analyze: 'source-map-explorer build/static/js/main.*',
   };
 
   // Setup the eslint config
@@ -161,7 +163,7 @@ module.exports = function(
     command = 'yarnpkg';
     args = ['add'];
   } else {
-    command = 'npm';
+    command = 'tnpm'; // npm 改成 tnpm
     args = ['install', '--save', verbose && '--verbose'].filter(e => e);
   }
   args.push('react', 'react-dom');
@@ -218,19 +220,19 @@ module.exports = function(
   const displayedCommand = useYarn ? 'yarn' : 'npm';
 
   console.log();
-  console.log(`Success! Created ${appName} at ${appPath}`);
-  console.log('Inside that directory, you can run several commands:');
+  console.log(`成功创建了 ${appName} ！路径为 ${appPath}`);
+  console.log('进入文件夹，可运行以下命令:');
   console.log();
   console.log(chalk.cyan(`  ${displayedCommand} start`));
-  console.log('    Starts the development server.');
+  console.log('    开启开发环境.');
   console.log();
   console.log(
     chalk.cyan(`  ${displayedCommand} ${useYarn ? '' : 'run '}build`)
   );
-  console.log('    Bundles the app into static files for production.');
+  console.log('    生产静态文件用于生产环境.');
   console.log();
   console.log(chalk.cyan(`  ${displayedCommand} test`));
-  console.log('    Starts the test runner.');
+  console.log('    跑测试.');
   console.log();
   console.log(
     chalk.cyan(`  ${displayedCommand} ${useYarn ? '' : 'run '}eject`)
