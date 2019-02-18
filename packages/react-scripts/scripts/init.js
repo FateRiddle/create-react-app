@@ -159,13 +159,16 @@ module.exports = function(
   let command;
   let args;
 
-  if (useYarn) {
-    command = 'yarnpkg';
-    args = ['add'];
-  } else {
-    command = 'tnpm'; // npm 改成 tnpm
-    args = ['install', '--save', verbose && '--verbose'].filter(e => e);
-  }
+  command = 'tnpm'; // npm 改成 tnpm
+  args = ['install', '--save', verbose && '--verbose'].filter(e => e);
+
+  // if (useYarn) {
+  //   command = 'yarnpkg';
+  //   args = ['add'];
+  // } else {
+  //   command = 'npm';
+  //   args = ['install', '--save', verbose && '--verbose'].filter(e => e);
+  // }
   args.push('react', 'react-dom');
 
   // Install additional template dependencies, if present

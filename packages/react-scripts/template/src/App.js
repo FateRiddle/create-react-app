@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-
-import 'tachyons';
-import './App.css';
+import React from 'react';
+import { Layout } from 'antd';
+import Sidebar from './layout/Sidebar';
+import MainScreen from './layout/MainScreen';
+import './App.scss';
 
 function App() {
-  const [count, setCount] = useState(0);
   return (
-    <div className="h4 w4 f2" onClick={() => setCount(count + 1)}>
-      {count}
-    </div>
+    <Layout style={{}} className="App">
+      <Sidebar />
+      <MainScreen />
+    </Layout>
   );
 }
 
